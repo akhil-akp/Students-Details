@@ -13,7 +13,7 @@ const createToken = (id) => {
   });
 };
 
-const sendToken = (user, starusCode, res) => {
+const sendToken = (user, statusCode, res) => {
   const token = createToken(user._id);
 
   //Sending token as cookie in to http header
@@ -27,7 +27,7 @@ const sendToken = (user, starusCode, res) => {
   //Removing the password
   user.password = undefined;
 
-  res.status(starusCode).json({
+  res.status(statusCode).json({
     status: 'success',
     token,
     data: {

@@ -52,7 +52,7 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     sendErrDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    let error = { ...err };
+    let error = Object.create(err);
 
     if (err.name === 'CastError') error = castErrHandler(error);
     if (err.code === 11000) error = duplicateKeyErrHandler(error);

@@ -15,7 +15,8 @@ const factory = require('./handlerFactory');
 //   },
 // });
 
-const multerStorage = multer.memoryStorage();
+const multerStorage = multer.memoryStorage();    
+
 
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) {
@@ -33,15 +34,16 @@ const upload = multer({
 exports.uploadUserPhoto = upload.single('photo');
 
 exports.resizeUplodedPhoto = catchAsync(async (req, res, next) => {
+  console.log(req.file);
   if (!req.file) return next();
 
-  req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
+  const filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 
   await sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
-    .toFile(`public/images/usersPhotos/${req.file.filename}`);
+    .toFile(`public/images/usersPhotos/${filename}`);
 
   next();
 });

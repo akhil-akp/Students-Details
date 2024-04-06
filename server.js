@@ -11,8 +11,6 @@ mongoose
   })
   .then(() => console.log('DB connection has been done!!'));
 
-// console.log(process.argv);
-
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Here I am listening you at port:${port}. Date: ${new Date().toLocaleString()}`);

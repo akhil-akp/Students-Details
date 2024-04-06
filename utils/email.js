@@ -9,25 +9,25 @@ module.exports = class Email {
   }
 
   newTransport() {
-    if ((process.env.NODE_ENV = 'production')) {
-      return nodemailer.createTransport({
-        service: 'SendinBlue',
-        auth: {
-          user: process.env.EMAIL_FROM,
-          pass: process.env.SENDINBLUE_PASSWORD,
-        },
-      });
-    }
-
+    // if ((process.env.NODE_ENV = 'production')) {
     return nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-
+      service: 'SendinBlue',
       auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
+        user: process.env.EMAIL_FROM,
+        pass: process.env.SENDINBLUE_PASSWORD,
       },
     });
+    // }
+
+    // return nodemailer.createTransport({
+    //   host: process.env.EMAIL_HOST,
+    //   port: process.env.EMAIL_PORT,
+
+    //   auth: {
+    //     user: process.env.EMAIL_USERNAME,
+    //     pass: process.env.EMAIL_PASSWORD,
+    //   },
+    // });
   }
 
   async send(subject, text) {
